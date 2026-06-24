@@ -1,0 +1,288 @@
+name: ArcartX-Suite
+version: '${version}'
+main: xuanmo.arcartxsuite.ArcartXSuitePlugin
+api-version: '1.20'
+load: POSTWORLD
+depend:
+  - ArcartX
+softdepend:
+  - Chemdah
+  - Adyeshach
+  - MythicMobs
+  - MythicBukkit
+  - MythicLib
+  - MMOItems
+  - PlaceholderAPI
+  - AttributePlus
+  - CraneAttribute
+  - Vault
+  - PlayerPoints
+  - NeigeItems
+  - AuthMe
+commands:
+  ess:
+    description: Essentials 玩家命令（/axs essentials 缩写）
+    usage: /ess <action> [args...]
+    permission: axs.essentials.menu
+  rg:
+    description: Regions 玩家命令（/axs regions 缩写）
+    usage: /rg <action> [args...]
+    permission: axs.regions.select
+  afk:
+    description: 玩家挂机命令
+    usage: /<command> [toggle|status|start <区域>|end|list|top]
+    permission: arcartxsuite.afkreward.use
+  afkreward:
+    description: 玩家挂机奖励命令
+    usage: /<command> [toggle|status|start <区域>|end|list|top]
+    permission: arcartxsuite.afkreward.use
+  arcartxsuite:
+    description: ArcartXSuite 管理命令
+    usage: /axs help [module] | /axs <module> help | /axs status|reload
+    aliases: [axs]
+    permission: arcartxsuite.admin
+  title:
+    description: 玩家称号命令
+    usage: /<command> open|equip <titleId>|unequip <groupId|all>|hide <titleId>|unhide <titleId>
+    permission: arcartxsuite.title.use
+  warehouse:
+    description: 玩家仓库命令
+    usage: /<command> [open]
+    aliases: [wh]
+    permission: arcartxsuite.warehouse.use
+  mail:
+    description: 玩家邮箱命令
+    usage: /<command> open|compose|claimall|deleteall|cdk <code>
+    aliases: [axmail, axsmail]
+    permission: arcartxsuite.mail.use
+  chat:
+    description: 玩家聊天命令
+    usage: /<command> channel|toggle|ignore|unignore|socialspy
+    permission: arcartxsuite.chat.use
+  msg:
+    description: 玩家私聊命令
+    usage: /<command> <player> <message>
+    permission: arcartxsuite.chat.msg
+  reply:
+    description: 玩家回复私聊命令
+    usage: /<command> <message>
+    aliases: [r]
+    permission: arcartxsuite.chat.msg
+  onlinerewards:
+    description: 玩家在线奖励与签到命令
+    usage: /<command> open|status|signin|top <daily|weekly|monthly|total> [page]
+    permission: arcartxsuite.onlinerewards.use
+  signin:
+    description: 签到命令（onlinerewards 别名）
+    usage: /<command> open|status|signin|top <daily|weekly|monthly|total> [page]
+    permission: arcartxsuite.onlinerewards.use
+  questgps:
+    description: 玩家任务导航命令
+    usage: /<command> open|cleartrack|hud [on|off|toggle]
+    permission: arcartxsuite.questgps.use
+  axstab:
+    description: Tab 列表玩家命令
+    usage: /<command> view [name]|page <id> <next|prev|N>|refresh|debug <player> [id]|snapshot <save|load|unload|list|delete> [name]
+    permission: arcartxsuite.tab.use
+  map:
+    description: 玩家地图命令
+    usage: /<command> open [world]|hud [on|off|toggle]|cleartrack
+    aliases: [axmap]
+    permission: arcartxsuite.map.use
+  market:
+    description: 全球市场命令（拍卖行/系统商店/回收）
+    usage: /<command> [shop|auction|sell|recycle|history|my|search|cancel]
+    aliases: [mk, ah]
+    permission: arcartxsuite.market.use
+  pickup:
+    description: 玩家拾取功能开关
+    usage: /<command> [on|off|status]
+    permission: arcartxsuite.pickup.use
+  qqbot:
+    description: QQ机器人绑定命令
+    usage: /<command> bind <验证码>|unbind|info
+    permission: arcartxsuite.qqbot.use
+  menu:
+    description: 玩家菜单命令
+    usage: /<command> open <菜单ID>|list
+    aliases: [axmenu]
+    permission: arcartxsuite.menu.use
+  fishing:
+    description: 玩家钓鱼命令
+    usage: /<command> [sell|sell all]
+    permission: arcartxsuite.fishing.use
+  lottery:
+    description: 玩家抽奖命令
+    usage: /<command> <pull|info|history> <poolId> [single|ten]
+    permission: arcartxsuite.lottery.use
+  bp:
+    description: 玩家战令命令
+    usage: /<command> [open|tasks|help]
+    aliases: [battlepass]
+    permission: arcartxsuite.battlepass.use
+permissions:
+  arcartxsuite.admin:
+    default: op
+  arcartxsuite.title.use:
+    default: true
+  arcartxsuite.warehouse.use:
+    default: true
+  arcartxsuite.mail.use:
+    default: true
+  arcartxsuite.mail.send:
+    default: true
+  arcartxsuite.mail.admin:
+    default: op
+  arcartxsuite.chat.use:
+    default: true
+  arcartxsuite.chat.msg:
+    default: true
+  arcartxsuite.chat.ignore:
+    default: true
+  arcartxsuite.chat.socialspy:
+    default: op
+  arcartxsuite.chat.mute:
+    default: op
+  arcartxsuite.onlinerewards.use:
+    default: true
+  arcartxsuite.onlinerewards.time.1_5:
+    default: false
+  arcartxsuite.onlinerewards.time.2:
+    default: false
+  arcartxsuite.onlinerewards.signin.bonus:
+    default: false
+  arcartxsuite.questgps.use:
+    default: true
+  arcartxsuite.map.use:
+    default: true
+  arcartxsuite.tab.use:
+    default: true
+  axstab.debug:
+    default: op
+  arcartxsuite.map.admin:
+    default: op
+  arcartxsuite.market.use:
+    default: true
+  arcartxsuite.market.admin:
+    default: op
+  arcartxsuite.pickup.use:
+    default: true
+  # ─── Essentials ───
+  axs.essentials.fly:
+    default: op
+  axs.essentials.god:
+    default: op
+  axs.essentials.heal:
+    default: op
+  axs.essentials.feed:
+    default: op
+  axs.essentials.gamemode:
+    default: op
+  axs.essentials.speed:
+    default: op
+  axs.essentials.vanish:
+    default: op
+  axs.essentials.vanish.see:
+    default: op
+  axs.essentials.afk:
+    default: true
+  axs.essentials.afk.exempt:
+    default: op
+  axs.essentials.back:
+    default: true
+  axs.essentials.repair:
+    default: op
+  axs.essentials.hat:
+    default: true
+  axs.essentials.enderchest:
+    default: op
+  axs.essentials.workbench:
+    default: true
+  axs.essentials.anvil:
+    default: true
+  axs.essentials.trash:
+    default: true
+  axs.essentials.nick:
+    default: op
+  axs.essentials.seen:
+    default: op
+  axs.essentials.home:
+    default: true
+  axs.essentials.warp:
+    default: true
+  axs.essentials.spawn:
+    default: true
+  axs.essentials.tpa:
+    default: true
+  axs.essentials.tp:
+    default: op
+  axs.essentials.top:
+    default: true
+  axs.essentials.tppos:
+    default: op
+  axs.essentials.time:
+    default: op
+  axs.essentials.weather:
+    default: op
+  axs.essentials.ban:
+    default: op
+  axs.essentials.unban:
+    default: op
+  axs.essentials.mute:
+    default: op
+  axs.essentials.unmute:
+    default: op
+  axs.essentials.kick:
+    default: op
+  axs.essentials.warn:
+    default: op
+  axs.essentials.sudo:
+    default: op
+  axs.essentials.inv:
+    default: op
+  axs.essentials.sit:
+    default: true
+  axs.essentials.lay:
+    default: true
+  axs.essentials.treecap:
+    default: false
+  axs.essentials.replant:
+    default: false
+  axs.essentials.sort:
+    default: true
+  axs.essentials.autotool:
+    default: true
+  axs.essentials.admin:
+    default: op
+  axs.essentials.menu:
+    default: true
+  # ─── Regions ───
+  axs.regions.select:
+    default: true
+  axs.regions.admin:
+    default: op
+  axs.regions.bypass:
+    default: op
+  axs.regions.bypass.limit:
+    default: op
+  # ─── Menu ───
+  arcartxsuite.menu.use:
+    default: true
+  axs.menu.reload:
+    default: op
+  axs.menu.open.other:
+    default: op
+  # ─── QQBot ───
+  arcartxsuite.qqbot.use:
+    default: true
+  arcartxsuite.qqbot.admin:
+    default: op
+  # ─── Fishing ───
+  arcartxsuite.fishing.use:
+    default: true
+  # ─── Lottery ───
+  arcartxsuite.lottery.use:
+    default: true
+  # ─── BattlePass ───
+  arcartxsuite.battlepass.use:
+    default: true

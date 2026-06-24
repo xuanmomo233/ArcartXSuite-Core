@@ -1,0 +1,22 @@
+# ArcartXSuite Proxy 配置
+# 路径: plugins/ArcartXSuite-Proxy/proxy-config.yml
+
+debug: false
+
+# 是否拒绝离线模式玩家登录
+deny-offline: true
+kick-offline-message: "&c本服务器仅支持正版/LittleSkin 账号登录"
+
+# 是否为离线玩家自动分配 UUID（通常保持 true）
+auto-assign-uuid: true
+
+# Yggdrasil 认证源列表（按顺序尝试）
+sources:
+  - name: Mojang
+    api-url: "https://sessionserver.mojang.com/"
+    enabled: true
+    allow-offline-fallback: false
+  - name: LittleSkin
+    api-url: "https://littleskin.cn/api/yggdrasil"
+    enabled: true
+    allow-offline-fallback: false

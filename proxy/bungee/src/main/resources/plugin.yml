@@ -1,0 +1,5 @@
+name: ArcartXSuite-Proxy
+version: '1.1.0'
+main: xuanmo.arcartxsuite.proxy.bungee.ArcartXSuiteBungee
+description: ArcartXSuite proxy companion for BungeeCord
+author: xuanmo

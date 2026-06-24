@@ -1,0 +1,130 @@
+config-version: 2
+
+# ========== 全局货币定义 ==========
+currencies:
+  money:
+    enabled: true
+    provider: "vault"
+    display-name: "金币"
+    precision: 2
+  points:
+    enabled: true
+    provider: "playerpoints"
+    display-name: "点券"
+    precision: 0
+
+# ========== 跨服传输（全模块共用）==========
+cross-server:
+  node-id: "default"
+  dedupe-ttl-ms: 60000
+  max-payload-chars: 524288
+  redis:
+    enabled: false
+    host: "127.0.0.1"
+    port: 6379
+    password: ""
+    database: 0
+    channel: "AXS:CROSS"
+    connect-timeout-ms: 5000
+  proxy:
+    enabled: false
+    messenger-channel: "AXS_CROSS"
+    forward-target: "ALL"
+  signature:
+    enabled: false
+    secret: ""
+    verify: true
+
+# ========== 全局属性插件桥接 ==========
+attribute-bridges:
+  attributeplus: true
+  craneattribute: true
+  mythiclib: true
+  symphony: true
+
+# ========== 全局按键绑定 ==========
+keybinds:
+  interact:
+    name: AXS_INTERACT
+    default-key: G
+    category: ArcartXSuite
+  navigate-prev:
+    name: AXS_NAVIGATE_PREV
+    default-key: UP
+    category: ArcartXSuite
+  navigate-next:
+    name: AXS_NAVIGATE_NEXT
+    default-key: DOWN
+    category: ArcartXSuite
+
+# ========== Tacz 模组伤害兼容 ==========
+tacz-compat:
+  enabled: true
+  debug: false
+
+# ========== 聊天签名绕过（Paper 1.21+ 混合登录兼容）==========
+chat-sign-bypass:
+  enabled: true
+  only-for-non-premium: true
+
+# ========== 账号识别（统一服务）==========
+account-type:
+  enable-mojang-lookup: false
+  mojang-timeout-ms: 10000
+  mojang-proxy-host: ""
+  mojang-proxy-port: 0
+  debug: false
+
+modules:
+  entitytracker:
+    enabled: false
+  combateffect:
+    enabled: false
+  eventpacket:
+    enabled: false
+  tab:
+    enabled: false
+  title:
+    enabled: false
+  conversation:
+    enabled: false
+  announcer:
+    enabled: false
+  pickup:
+    enabled: false
+  prop:
+    enabled: false
+  rgb:
+    enabled: false
+  onlinerewards:
+    enabled: false
+  loginview:
+    enabled: false
+  warehouse:
+    enabled: false
+  mail:
+    enabled: false
+  chat:
+    enabled: false
+  questgps:
+    enabled: false
+  map:
+    enabled: false
+  essentials:
+    enabled: false
+  regions:
+    enabled: false
+  market:
+    enabled: false
+  qqbot:
+    enabled: false
+  menu:
+    enabled: false
+  battlepass:
+    enabled: false
+  fishing:
+    enabled: false
+  afkreward:
+    enabled: false
+  lottery:
+    enabled: false
