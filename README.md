@@ -11,6 +11,8 @@
 
 这是 **ArcartXSuite (AXS)** 的模块开发 SDK。本仓库提供完整的公共 API 源码与文档，供第三方开发者基于 AXS 宿主编写自定义模块。
 
+注意：ArcartXSuite 不属于 ArcartX 官方插件，它是基于 ArcartX 客户端模组生态构建的第三方宿主框架。核心职责包括：统一管理 AttributePlus / CraneAttribute / MythicLib / Symphony 等属性桥接、MythicMobs / NeigeItems / MMOItems 等物品来源桥接、Vault / PlayerPoints 等经济桥接；提供模块加载、生命周期管理与配置诊断引擎；内置跨服传输（Redis + Proxy）、按键绑定服务、聊天签名绕过、账号类型识别（正版 / LittleSkin / 离线）等基础设施。所有业务逻辑均通过 `modules/*.jar` 独立模块加载，宿主本身不持有任何业务服务。
+
 ## 快速开始
 
 1. 获取 `axs-api` JAR
