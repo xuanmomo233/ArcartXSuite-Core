@@ -44,6 +44,19 @@ dependencies {
 4. 将模块 JAR 放入服务器的 `plugins/ArcartXSuite/modules/`
 5. 在 `plugins/ArcartXSuite/config.yml` 中启用模块
 
+### 模块 Ed25519 签名（可选）
+
+对 `module.yml` 的 `id:version:main` 做 Ed25519 签名，供服主在 `module-signature-public-keys` 中校验：
+
+```bash
+pip install cryptography
+python scripts/sign-module.py keygen --out-dir ./module-signing-keys
+python scripts/sign-module.py sign --module-yml src/main/resources/module.yml --private-key module-signing-keys/ed25519-private.pem
+python scripts/sign-module.py pubkey --public-key module-signing-keys/ed25519-public.pem
+```
+
+Wiki 完整说明：[模块 Ed25519 签名](https://github.com/xuanmomo233/ArcartXSuite-Wiki/blob/main/docs/guide/developer/module-signature.md)
+
 ## 发布 `axs-api`（维护者）
 
 仓库已配置 GitHub Actions：[Build axs-api](.github/workflows/build-axs-api.yml)（push/PR 校验）、[Release axs-api](.github/workflows/release-axs-api.yml)（发布 JAR）。
@@ -77,7 +90,7 @@ dependencies {
 | `axs-api/` | 模块公共 API（`AXSModule`, `ModuleContext`, `Bridge API` 等）|
 | `axs-placeholder/` | PlaceholderAPI 扩展接口 |
 | `proxy/` | Bungee / Velocity 代理端公共库 |
-| `src/main/java/xuanmo/arcartxsuite/` | 宿主核心源码参考（`ModuleRegistry`, `BridgeLifecycleManager` 等）|
+| `scripts/` | 发布脚本（`publish-release.*`、`sign-module.py`） |
 
 ## 模块开发指南
 
