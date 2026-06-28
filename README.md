@@ -1,7 +1,7 @@
 # ArcartXSuite 模块开发 SDK
 
 > **Suite — 组曲，亦是套装。**
->
+><img width="3676" height="348" alt="ArcartX-Suite" src="https://github.com/user-attachments/assets/4080970a-8c06-4c56-9735-2072503bdb1d" />
 > 在音乐中，**Suite（组曲）** 是由多首独立小曲串联而成的成套器乐作品。
 > 一部组曲有四段——序曲启程，变奏展开，华彩交织，终章回响。
 > 每一段风格、节奏各不相同，**分开能单独演奏，合起来是一部统一于同一调性的完整作品**。
