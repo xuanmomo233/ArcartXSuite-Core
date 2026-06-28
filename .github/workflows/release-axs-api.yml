@@ -1,9 +1,22 @@
 name: Release axs-api
 
 on:
+  push:
+    tags:
+      - "v*"
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      version:
+        description: "版本号（不含 v 前缀，如 1.2.0-beta）"
+        required: false
+        type: string
+      create_release:
+        description: "是否创建 GitHub Release 并上传 JAR"
+        required: false
+        default: true
+        type: boolean
 
 permissions:
   contents: write
@@ -24,25 +37,72 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Sync version from release tag
-        if: github.event_name == 'release'
+      - name: Resolve release version
+        id: version
         run: |
-          TAG="${{ github.event.release.tag_name }}"
-          VERSION="${TAG#v}"
-          sed -i "s/^version=.*/version=${VERSION}/" gradle.properties
+          if [ "${{ github.event_name }}" = "push" ]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          elif [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            VERSION="${VERSION#v}"
+          elif [ -n "${{ inputs.version }}" ]; then
+            VERSION="${{ inputs.version }}"
+          else
+            VERSION="$(grep '^version=' gradle.properties | cut -d= -f2)"
+          fi
+          echo "value=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: ${VERSION}"
+
+      - name: Sync gradle.properties version
+        run: sed -i "s/^version=.*/version=${{ steps.version.outputs.value }}/" gradle.properties
 
       - name: Build axs-api jar
         run: ./gradlew :axs-api:jar --no-daemon
 
-      - name: Upload to GitHub Release
+      - name: Verify jar output
+        run: |
+          ls -la axs-api/build/libs/
+          test -f "axs-api/build/libs/axs-api-${{ steps.version.outputs.value }}.jar"
+
+      - name: Publish to GitHub Release (tag push)
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: axs-api ${{ steps.version.outputs.value }}
+          body: |
+            ## axs-api ${{ steps.version.outputs.value }}
+
+            第三方模块开发 SDK，将 `axs-api-${{ steps.version.outputs.value }}.jar` 放入模块工程 `libs/` 并 `compileOnly` 依赖即可。
+
+            ```kotlin
+            dependencies {
+                compileOnly(files("libs/axs-api-${{ steps.version.outputs.value }}.jar"))
+                compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
+            }
+            ```
+          files: axs-api/build/libs/axs-api-*.jar
+          generate_release_notes: true
+
+      - name: Upload to existing GitHub Release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event.release.tag_name }}
           files: axs-api/build/libs/axs-api-*.jar
 
-      - name: Upload build artifact (manual run)
-        if: github.event_name == 'workflow_dispatch'
+      - name: Publish to GitHub Release (manual)
+        if: github.event_name == 'workflow_dispatch' && inputs.create_release == true
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.value }}
+          name: axs-api ${{ steps.version.outputs.value }}
+          files: axs-api/build/libs/axs-api-*.jar
+          generate_release_notes: true
+
+      - name: Upload build artifact (manual, no release)
+        if: github.event_name == 'workflow_dispatch' && inputs.create_release != true
         uses: actions/upload-artifact@v5
         with:
-          name: axs-api-jar
+          name: axs-api-${{ steps.version.outputs.value }}
           path: axs-api/build/libs/axs-api-*.jar

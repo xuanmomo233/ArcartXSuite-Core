@@ -46,9 +46,29 @@ dependencies {
 
 ## 发布 `axs-api`（维护者）
 
-1. 在 `gradle.properties` 中更新 `version`（或与 Release 标签 `v<version>` 保持一致）。
-2. 在 GitHub 创建 Release 并发布；CI 会自动构建并上传 `axs-api-<version>.jar`。
-3. 也可在 Actions 中手动运行 **Release axs-api** 工作流，从 Artifacts 下载 JAR。
+仓库已配置 GitHub Actions：[Build axs-api](.github/workflows/build-axs-api.yml)（push/PR 校验）、[Release axs-api](.github/workflows/release-axs-api.yml)（发布 JAR）。
+
+### 方式一：打标签自动发布（推荐）
+
+```bash
+# Linux / macOS
+./scripts/publish-release.sh 1.2.0-beta
+
+# Windows PowerShell
+.\scripts\publish-release.ps1 -Version 1.2.0-beta
+```
+
+推送 `v<version>` 标签后，CI 会构建 `axs-api-<version>.jar` 并创建 [GitHub Release](https://github.com/xuanmomo233/ArcartXSuite-Core/releases)。
+
+### 方式二：GitHub 网页
+
+1. 更新 `gradle.properties` 中的 `version`
+2. 在 GitHub **Releases → Create a new release**，标签填 `v<version>` 并发布
+3. CI 自动上传 `axs-api-<version>.jar`
+
+### 方式三：手动触发 Actions
+
+在 **Actions → Release axs-api → Run workflow** 运行，可勾选创建 Release 或仅下载 Artifact。
 
 ## 项目结构
 
